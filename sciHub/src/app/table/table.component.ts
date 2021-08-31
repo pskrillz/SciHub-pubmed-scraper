@@ -14,7 +14,7 @@ export class TableComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  articles: ExternalArticle[] =
+  // articles: ExternalArticle[] =
 
 
 
