@@ -1,0 +1,13 @@
+h1, p{
+    text-align: center;
+}
+
+h1{
+    position: relative;
+    top: 20px;
+}
+
+.main{
+    height: 10vh;
+    background-color: rgb(115, 201, 235);
+}
