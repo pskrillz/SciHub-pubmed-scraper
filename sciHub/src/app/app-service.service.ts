@@ -14,13 +14,26 @@ export class AppServiceService {
 
 
   api = environment.url
+ // api = "http://localhost:5000"
 
-
-  getArticles(){
+  getArticles() {
     return this.http
       .get(`${this.api}/articles`)
-      // .pipe(catchError(this.handleError));
+      .pipe(catchError(this.handleError));
   }
 
 
+
+
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      console.error('An error occurred:', error.error.message);
+    } else {
+      console.error(
+        `Backend returned code ${error.status}, ` + `body was: ${error.error}`
+      );
+    }
+    return [];
+  }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ExternalArticle } from '../interfaces/ExternalArticle'
+import { AppServiceService } from '../app-service.service'
 
 
 @Component({
@@ -9,12 +10,28 @@ import { ExternalArticle } from '../interfaces/ExternalArticle'
 })
 export class TableComponent implements OnInit {
 
-  constructor() { }
+  constructor(private appService: AppServiceService) { }
 
   ngOnInit(): void {
+    this.getArticles()
   }
 
-  // articles: ExternalArticle[] =
+   articles: ExternalArticle[] = [];
+  //articles = []
+
+
+  
+
+
+
+  getArticles(){
+    this.appService.getArticles().subscribe(res => { 
+      this.articles = res.data
+      console.log("getArticles() ran", res)
+    });
+
+
+  }
 
 
 

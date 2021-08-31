@@ -1,8 +1,18 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
-/src/app/environments
-/src/dbconfig.py
-/src/dbConn.ts
-/src/server.js
+
+
+# Old exposed server I was using
+/src/serverOld.js
+
+# Dev environment parameters also dont need to be exposed
+/src/environments
+
+# Env for backend config
+../backend/db/dbconfig.py
+../backend/node_modules
+../backend/.env
+
+
 
 # compiled output
 /dist
