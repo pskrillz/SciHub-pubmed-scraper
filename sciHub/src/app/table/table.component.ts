@@ -43,7 +43,8 @@ export class TableComponent implements OnInit {
   openAbstractModal(id: string): void{
     const dialogRef = this.dialog.open(AbstractModalComponent, {
       width: '500px',
-      height: '600px'
+      height: '600px',
+      data: {articleId: id}
     });
   }
 
