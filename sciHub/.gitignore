@@ -9,7 +9,7 @@
 
 # Env for backend config
 ../backend/db/dbconfig.py
-/backend/node_modules
+../backend/node_modules
 ../backend/.env
 
 
