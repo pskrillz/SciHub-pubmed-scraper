@@ -14,12 +14,15 @@ import { AppServiceService } from './app-service.service';
 
 // UI components
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { AbstractModalComponent } from './table/abstract-modal/abstract-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BannerComponent,
-    TableComponent
+    TableComponent,
+    AbstractModalComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +30,8 @@ import { MatIconModule } from '@angular/material/icon';
     BrowserAnimationsModule,
     NgbModule,
     HttpClientModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule
   ],
   providers: [AppServiceService, HttpClient],
   bootstrap: [AppComponent]

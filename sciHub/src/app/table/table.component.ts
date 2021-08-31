@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ExternalArticle } from '../interfaces/ExternalArticle'
 import { AppServiceService } from '../app-service.service'
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+ import { AbstractModalComponent } from '../table/abstract-modal/abstract-modal.component'
 
 
 @Component({
@@ -10,7 +12,10 @@ import { AppServiceService } from '../app-service.service'
 })
 export class TableComponent implements OnInit {
 
-  constructor(private appService: AppServiceService) { }
+  constructor(
+    private appService: AppServiceService,
+    private dialog: MatDialog
+    ) { }
 
   ngOnInit(): void {
     this.getArticles()
@@ -35,10 +40,11 @@ export class TableComponent implements OnInit {
     console.log("test")
   }
 
-  openAbstractModal(id: string){
-    
+  openAbstractModal(id: string): void{
+    const dialogRef = this.dialog.open(AbstractModalComponent, {
+      width: '500px',
+      height: '600px'
+    });
   }
-
-
 
 }
