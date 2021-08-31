@@ -8,10 +8,10 @@
     </thead>
     <tbody>
       <tr *ngFor="let article of articles">
-        <td (click)="test()">{{article?.id}}</td>
+        <td>{{article?.id}}</td>
         <td>{{article?.type}}</td>
         <td>
-          <button class="btn" style="color:orange">
+          <button class="btn" style="color:orange" (click)="openAbstractModal(article.id)">
             <mat-icon aria-hidden="false" aria-label="article icon">article</mat-icon>
           </button>
         </td>

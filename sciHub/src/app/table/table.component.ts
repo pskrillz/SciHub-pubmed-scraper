@@ -35,5 +35,10 @@ export class TableComponent implements OnInit {
     console.log("test")
   }
 
+  openAbstractModal(id: string){
+    
+  }
+
+
 
 }
