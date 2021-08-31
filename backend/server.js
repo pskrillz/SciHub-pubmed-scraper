@@ -1,5 +1,7 @@
 var http = require('http'); 
 var https = require('https');
+var request = require('request');
+var cheerio = require('cheerio');
 var bodyParser = require('body-parser');
 const express = require('express');
 const { Pool } = require('pg')
@@ -8,28 +10,86 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 
-
 // Tell node not to care about self signed certificates
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
 
-
-
-
-
-
 const app = express();
 const port = 5000 || process.env.PORT;
-// const connectionString = 'postgres://medtkyjhvkehgg:774a2a40ed2549844969c339696f8e8b822c8774039e97f0a9639e080118551c@ec2-44-195-201-3.compute-1.amazonaws.com:5432/dfnmcotkcoa6fs?sslmode=require'
 
 
 const pool = new Pool({
- //1 connectionString: connectionString,
  connectionString: process.env.connectionString
 //  ssl: { rejectUnauthorized: false }
 });
 
 
+const PUBMED_BASE_URL = "https://pubmed.ncbi.nlm.nih.gov/";
+
+
+
+app.get('/abstract/:id',
+  function(req, res, next){
+
+    request({
+      method: 'GET',
+      url: PUBMED_BASE_URL + req.params.id
+  }, (err, result, body) => {
+      //console.log(result);
+
+      Object.keys(result).forEach((prop)=> console.log(prop));
+      console.log("Status code: " + result.statusCode);
+
+      //Handle error with request, somehow could not reach pubmed
+      if (err){
+        console.log(err);
+        return res.status(500).json({
+          success: false,
+          message: "Internal server error"
+        });
+      }
+
+      //Verify page exists
+      if(!result.hasOwnProperty("statusCode") || result.statusCode != 200)
+        return res.status(400).json({
+          success: false,
+          message: "Invalid article ID"
+        });
+
+      //Page exists, so now lets scrape the abstract
+      try{
+        var $ = cheerio.load(body);
+        var abstract = $("#enc-abstract");
+        
+        //Abstract div is not on the page, return a 404 to the user
+        if(abstract == undefined){
+          return res.status(404).json({
+            success: false,
+            message: "Abstract not found"
+          });
+        }
+
+        //Abstract div is on the page, return the text from the div
+        return res.status(200).json({
+          success: true,
+          data: {
+            abstract: abstract.text()
+          }
+        });
+
+
+
+      }
+      catch(err){
+        console.log(err);
+        return res.status(500).json({
+          success: false,
+          message: "Internal server error"
+        });
+      }
+    
+  });
+});
 
 app.get('/articles',
   function(req, res, next){
@@ -57,6 +117,8 @@ app.get('/articles',
       
     });
 });
+
+
 
 
 app.listen(port, () => {

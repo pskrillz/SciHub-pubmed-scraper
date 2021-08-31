@@ -5,7 +5,7 @@
 /src/serverOld.js
 
 # Dev environment parameters also dont need to be exposed
-/src/environments
+# /src/environments
 
 # Env for backend config
 ../backend/db/dbconfig.py

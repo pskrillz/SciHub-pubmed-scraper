@@ -16,8 +16,7 @@ export class TableComponent implements OnInit {
     this.getArticles()
   }
 
-   articles: ExternalArticle[] = [];
-  //articles = []
+  articles: ExternalArticle[] = [];
 
 
   
@@ -29,10 +28,12 @@ export class TableComponent implements OnInit {
       this.articles = res.data
       console.log("getArticles() ran", res)
     });
-
-
   }
 
+
+  test(){
+    console.log("test")
+  }
 
 
 }

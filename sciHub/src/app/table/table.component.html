@@ -7,7 +7,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let article of articles">
-        <td>{{article?.id}}</td>
+        <td (click)="test()">{{article?.id}}</td>
         <td>{{article?.type}}</td>
       </tr>
     </tbody>
