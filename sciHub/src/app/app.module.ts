@@ -12,6 +12,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TableComponent } from './table/table.component';
 import { AppServiceService } from './app-service.service';
 
+// UI components
+import { MatIconModule } from '@angular/material/icon';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +26,8 @@ import { AppServiceService } from './app-service.service';
     AppRoutingModule,
     BrowserAnimationsModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    MatIconModule
   ],
   providers: [AppServiceService, HttpClient],
   bootstrap: [AppComponent]

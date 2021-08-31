@@ -1,9 +1,35 @@
-.table{
-    width: 40%;
-    margin: 20px
+
+
+/* Mobile */
+@media screen and (max-width: 500px) {
+
+
+
 }
 
+
+.table{
+    width: 40%;
+    /* margin: 2%;
+    margin-left: 5%; */
+    margin: 0 auto;
+    margin-top: 3%;
+}
+
+th, tr{
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+/* 
 td{
     color:blue;
     text-decoration: underline;
-}
+} */

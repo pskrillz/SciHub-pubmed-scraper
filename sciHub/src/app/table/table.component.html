@@ -3,12 +3,26 @@
       <tr>
         <th>ID</th>
         <th>Type</th>
+        <th>View</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let article of articles">
         <td (click)="test()">{{article?.id}}</td>
         <td>{{article?.type}}</td>
+        <td>
+          <button class="btn" style="color:orange">
+            <mat-icon aria-hidden="false" aria-label="article icon">article</mat-icon>
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
+
+
+  
+
+  <!-- <div class='article-detail'>
+    <h1 style="text-align: center;">Abstract View</h1>
+
+  </div> -->
