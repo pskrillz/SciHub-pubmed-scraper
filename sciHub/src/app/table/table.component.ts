@@ -23,11 +23,6 @@ export class TableComponent implements OnInit {
 
   articles: ExternalArticle[] = [];
 
-
-  
-
-
-
   getArticles(){
     this.appService.getArticles().subscribe(res => { 
       this.articles = res.data

@@ -22,14 +22,12 @@ const pool = new Pool({
  connectionString: process.env.connectionString
 });
 
-
 const PUBMED_BASE_URL = "https://pubmed.ncbi.nlm.nih.gov/";
+
 
 /* *Note*: Using status code 200 for successful responses, but 
 within that response giving the code for the error so that it reaches client */
 
-
-// get abstract for specific article
 app.get('/abstract/:id',
   function(req, res, next){
 
@@ -40,8 +38,7 @@ app.get('/abstract/:id',
 
 
 
-
-      //Handle error with request, somehow could not reach pubmed
+      // Handle error 'bad'request', somehow could not reach pubmed
       if (err){
         console.log(err);
         return res.status(200).json({
@@ -59,29 +56,26 @@ app.get('/abstract/:id',
           error: 400
         });
 
-      //Page exists, so now lets scrape the abstract
+      //Page exists, scrape abstract by id
       try{
         var $ = cheerio.load(body);
         var abstract = $("#enc-abstract");
         
-        //Abstract div is not on the page, return a 404 to the user
+        //Abstract div is not found, return a 404 to the user
         if(abstract == undefined){
           return res.status(200).json({
             success: false,
             message: "Error: Abstract not found",
             error: 404
           });
-        }
-
-        if(abstract.length == 0){
+        } else if(abstract.length == 0){
           return res.status(200).json({
             success: false,
             message: "Error: This article does not have an abstract",
             error: 404
           });
         }
-
-        //Abstract div is on the page, return the text from the div
+        // Success! Abstract div is on the page, return the text from the div
         return res.status(200).json({
           success: true,
           data: {
@@ -100,6 +94,9 @@ app.get('/abstract/:id',
   });
 });
 
+
+
+
 app.get('/articles',
   function(req, res, next){
     pool.query(`SELECT * FROM public."ExternalArticle"`, (err, result) => {
@@ -113,9 +110,9 @@ app.get('/articles',
           success: false
         });
       }
-      //Successfully grabbed the data, parse it
+      //Successfully grabbed article, parse it
       else{
-        console.log("Successfully grabbed data");
+        console.log("Successfully grabbed articles");
         return res.status(200).json({
           success: true,
           data: result.rows
@@ -124,8 +121,6 @@ app.get('/articles',
       
     });
 });
-
-
 
 
 app.listen(port, () => {

@@ -11,11 +11,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TableComponent } from './table/table.component';
 import { AppServiceService } from './app-service.service';
+import { AbstractModalComponent } from './table/abstract-modal/abstract-modal.component';
 
 // UI components
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
-import { AbstractModalComponent } from './table/abstract-modal/abstract-modal.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { AbstractModalComponent } from './table/abstract-modal/abstract-modal.co
     NgbModule,
     HttpClientModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressSpinnerModule
   ],
   providers: [AppServiceService, HttpClient],
   bootstrap: [AppComponent]

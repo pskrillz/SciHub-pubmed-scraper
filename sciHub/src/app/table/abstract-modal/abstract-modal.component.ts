@@ -3,6 +3,9 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { AppServiceService } from 'src/app/app-service.service';
 import { tap } from 'rxjs/operators'; 
 
+import {ThemePalette} from '@angular/material/core';
+import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
+
 export interface DialogData{
   articleId: string
 }
@@ -13,6 +16,10 @@ export interface DialogData{
   styleUrls: ['./abstract-modal.component.css']
 })
 export class AbstractModalComponent implements OnInit {
+  
+  //spinner config
+  color: ThemePalette = 'primary';
+  mode: ProgressSpinnerMode = 'indeterminate';
 
   constructor(
     private dialog: MatDialogRef<AbstractModalComponent>,

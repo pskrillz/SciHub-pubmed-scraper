@@ -13,8 +13,6 @@ import { EMPTY } from 'rxjs';
 export class AppServiceService {
 
 constructor(private http: HttpClient) { }
-
-
   api = environment.url
 
   getArticles() {
@@ -29,8 +27,6 @@ constructor(private http: HttpClient) { }
     .get(`${this.api}/abstract/${id}`)
     .pipe(catchError(this.handleError))
   }
-
-
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
