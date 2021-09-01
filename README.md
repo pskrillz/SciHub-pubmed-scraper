@@ -1,5 +1,4 @@
 # SciHub-pubmed-scraper
-Full stack app that scrapes abstracts of research studies from pubmed using NEAR stack (Node, Express, Angular, RelationalDB) 
 
 Development Mode Demo:
 
