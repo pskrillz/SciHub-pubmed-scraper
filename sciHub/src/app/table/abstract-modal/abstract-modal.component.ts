@@ -39,6 +39,7 @@ export class AbstractModalComponent implements OnInit {
   }
 
   abstractText 
+  gotAbstract
   getArticleAbstract(): void{
     console.log("abstComponent", this.data, this.data.articleId)
     this.appService.getAbstract(this.data.articleId).subscribe(
@@ -65,7 +66,10 @@ export class AbstractModalComponent implements OnInit {
         console.log("~~~~~~~~~~~~~~~~~~~~~~~");
         console.log(error)
       },
-      () => console.log("Completed")) 
+      () => {
+        console.log("Completed")
+        this.gotAbstract = true;
+      }) 
   }    
 
 
