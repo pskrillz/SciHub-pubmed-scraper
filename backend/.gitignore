@@ -1,4 +1,4 @@
 # Env for backend config
 /db/dbconfig.py
-/node_modules
-/.env
+./node_modules
+.env
