@@ -27,7 +27,6 @@ const pool = new Pool({
 const PUBMED_BASE_URL = "https://pubmed.ncbi.nlm.nih.gov/";
 
 
-
 app.get('/abstract/:id',
   function(req, res, next){
 
@@ -35,10 +34,6 @@ app.get('/abstract/:id',
       method: 'GET',
       url: PUBMED_BASE_URL + req.params.id
   }, (err, result, body) => {
-      //console.log(result);
-
-      Object.keys(result).forEach((prop)=> console.log(prop));
-      console.log("Status code: " + result.statusCode);
 
       //Handle error with request, somehow could not reach pubmed
       if (err){
@@ -69,6 +64,13 @@ app.get('/abstract/:id',
           });
         }
 
+        if(abstract.length == 0){
+          return res.status(404).json({
+            success: false,
+            message: "No abstract"
+          });
+        }
+
         //Abstract div is on the page, return the text from the div
         return res.status(200).json({
           success: true,
@@ -76,9 +78,6 @@ app.get('/abstract/:id',
             abstract: abstract.text()
           }
         });
-
-
-
       }
       catch(err){
         console.log(err);
@@ -87,7 +86,6 @@ app.get('/abstract/:id',
           message: "Internal server error"
         });
       }
-    
   });
 });
 
@@ -112,8 +110,6 @@ app.get('/articles',
           data: result.rows
         });
       }
-      
-      
       
     });
 });
