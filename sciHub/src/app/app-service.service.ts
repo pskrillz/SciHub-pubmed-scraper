@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ExternalArticle } from './interfaces/ExternalArticle'
 import { environment } from 'src/environments/environment';
 import { EMPTY } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ constructor(private http: HttpClient) { }
     .pipe(catchError(this.handleError));
   }
 
-  getAbstract(id: string){
+  getAbstract(id){
     console.log("appservice", id)
     return this.http
     .get(`${this.api}/abstract/${id}`)
@@ -39,6 +40,6 @@ constructor(private http: HttpClient) { }
         `Backend returned code ${error.status}, ` + `body was: ${error.error}`
       );
     }
-    return EMPTY;
+    return [];
   }
 }

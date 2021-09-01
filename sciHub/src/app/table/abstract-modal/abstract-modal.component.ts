@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AppServiceService } from 'src/app/app-service.service';
+import { tap } from 'rxjs/operators'; 
 
 export interface DialogData{
   articleId: string
@@ -30,17 +31,36 @@ export class AbstractModalComponent implements OnInit {
     this.dialog.close();
   }
 
-
-  abstractText: string 
+  abstractText 
   getArticleAbstract(): void{
-    console.log(this.data, this.data.articleId)
-    this.appService.getAbstract(this.data.articleId).subscribe(res => {
-      let result = res;
-      console.log(result)
-      this.abstractText = result.data.abstract;
-      console.log(result.data.abstract)
-    })
-  }
+    console.log("abstComponent", this.data, this.data.articleId)
+    this.appService.getAbstract(this.data.articleId).subscribe(
+      res => { 
+        console.log(res);
+        if(res.hasOwnProperty("success") && typeof res.success == 'boolean'){
+
+          if(res.success == false){
+            if(res.hasOwnProperty("message"))
+              this.abstractText = res.message;
+            else
+              this.abstractText = "Unavailable";
+          }
+          //successfully scraped abstract
+          else if(res.success == true){
+            this.abstractText = res.data.abstract;
+          }
+
+        }
+        else
+          this.abstractText = "Error"
+      },
+      error => {
+        console.log("~~~~~~~~~~~~~~~~~~~~~~~");
+        console.log(error)
+      },
+      () => console.log("Completed")) 
+  }    
+
 
 
 }
