@@ -28,7 +28,7 @@ const PUBMED_BASE_URL = "https://pubmed.ncbi.nlm.nih.gov/";
 /* *Note*: Using status code 200 for successful responses, but 
 within that response giving the code for the error so that it reaches client */
 
-app.get('/abstract/:id',
+app.get('/api/abstract/:id',
   function(req, res, next){
 
     request({
@@ -97,7 +97,7 @@ app.get('/abstract/:id',
 
 
 
-app.get('/articles',
+app.get('/api/articles',
   function(req, res, next){
     pool.query(`SELECT * FROM public."ExternalArticle"`, (err, result) => {
 
@@ -124,7 +124,7 @@ app.get('/articles',
 
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`Server Started at http://localhost:${port}`)
 })
 
 
