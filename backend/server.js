@@ -20,13 +20,16 @@ const port = 5000 || process.env.PORT;
 
 const pool = new Pool({
  connectionString: process.env.connectionString
-//  ssl: { rejectUnauthorized: false }
 });
 
 
 const PUBMED_BASE_URL = "https://pubmed.ncbi.nlm.nih.gov/";
 
+/* *Note*: Using status code 200 for successful responses, but 
+within that response giving the code for the error so that it reaches client */
 
+
+// get abstract for specific article
 app.get('/abstract/:id',
   function(req, res, next){
 
@@ -35,20 +38,25 @@ app.get('/abstract/:id',
       url: PUBMED_BASE_URL + req.params.id
   }, (err, result, body) => {
 
+
+
+
       //Handle error with request, somehow could not reach pubmed
       if (err){
         console.log(err);
-        return res.status(500).json({
+        return res.status(200).json({
           success: false,
-          message: "Internal server error"
+          message: "Internal server error",
+          error: 500
         });
       }
 
       //Verify page exists
       if(!result.hasOwnProperty("statusCode") || result.statusCode != 200)
-        return res.status(400).json({
+        return res.status(200).json({
           success: false,
-          message: "Invalid article ID"
+          message: "Error: Invalid article ID",
+          error: 400
         });
 
       //Page exists, so now lets scrape the abstract
@@ -58,16 +66,18 @@ app.get('/abstract/:id',
         
         //Abstract div is not on the page, return a 404 to the user
         if(abstract == undefined){
-          return res.status(404).json({
+          return res.status(200).json({
             success: false,
-            message: "Abstract not found"
+            message: "Error: Abstract not found",
+            error: 404
           });
         }
 
         if(abstract.length == 0){
-          return res.status(404).json({
+          return res.status(200).json({
             success: false,
-            message: "No abstract"
+            message: "Error: This article does not have an abstract",
+            error: 404
           });
         }
 
@@ -79,13 +89,14 @@ app.get('/abstract/:id',
           }
         });
       }
-      catch(err){
-        console.log(err);
-        return res.status(500).json({
-          success: false,
-          message: "Internal server error"
-        });
-      }
+        catch(err){
+          console.log(err);
+          return res.status(200).json({
+            success: false,
+            message: "Internal server error",
+            error: 500
+          });
+        }
   });
 });
 

@@ -31,42 +31,6 @@ export class AbstractModalComponent implements OnInit {
     this.dialog.close();
   }
 
-
-/*1 original attempt */  
-  // abstractText: string 
-  // getArticleAbstract(): void{
-  //   console.log(this.data, this.data.articleId)
-  //   this.appService.getAbstract(this.data.articleId).subscribe(res => {
-  //     let result = res;
-  //     console.log(result)
-  //     this.abstractText = result.data.abstract;
-  //     console.log(result.data.abstract)
-  //   })
-  // }
-
-  /*2 attempting Observable pipe */
-  // abstractText: string 
-  // getArticleAbstract() {
-  //   console.log(this.data, this.data.articleId)
-  //   this.appService.getAbstract(this.data.articleId)
-  //   .pipe(
-  //     tap(item => console.log("tapconsole", item))
-  //   ).subscribe(console.log)
-  // }
-    
-/*3 original but with typescript types tweaked */
-  // abstractText
-  // getArticleAbstract(): void{
-  //   console.log("abstComponent", this.data, this.data.articleId)
-  //   this.appService.getAbstract(this.data.articleId).subscribe(item => {
-  //     let result = item;
-  //     console.log("res", result)
-  //     this.abstractText = result
-  //     console.log(this.abstractText)
-  //   })
-  // }    
-    
-  /*4 tweaks- gonna try observable again*/  
   abstractText 
   getArticleAbstract(): void{
     console.log("abstComponent", this.data, this.data.articleId)
